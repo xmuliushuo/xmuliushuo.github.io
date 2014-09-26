@@ -62,6 +62,58 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-1" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/09/26/1/" class="article-date">
+  <time datetime="2014-09-26T07:25:49.000Z" itemprop="datePublished">9月 26 2014</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/09/26/1/">为什么null很糟糕？</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本文翻译自<a href="http://www.javacodegeeks.com/2014/09/why-null-is-bad.html" target="_blank" rel="external">Why NULL is Bad?</a>，转载请注明出处。</p>
+<p>下面是一个简单的例子，函数返回了null值：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> Employee <span class="title">getByName</span>(String name) {</div><div class="line">	<span class="keyword">int</span> id = database.find(name);</div><div class="line">	<span class="keyword">if</span> (id == <span class="number">0</span>) {</div><div class="line">		<span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">	}</div><div class="line">	<span class="keyword">return</span> <span class="keyword">new</span> Employee(id);</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>这个方法有什么问题呢？</p>
+<p>问题出在有时候它返回了一个null而不是一个对象。返回null是面向对象编程中的一种非常糟糕的行为，应该尽全力去避免。关于这一点，已经有很多观点，包括Tony Hoare的演讲 <a href="http://www.infoq.com/presentations/Null-References-The-Billion-Dollar-Mistake-Tony-Hoare" target="_blank" rel="external">Null References: The Billion Dollar Mistake</a> 以及David West的书 <a href="http://www.amazon.com/gp/product/0735619654/" target="_blank" rel="external">Obejct Thinking</a></p>
+<p>这里，我会总结所有的关于null的争论和以及如何避免null的例子。</p>
+<p>有两种基本的方法可以避免null.</p>
+<p>第一种方法是使用 <a href="http://en.wikipedia.org/wiki/Null_Object_pattern" target="_blank" rel="external">Null Object</a> 设计模式（最好将其设为常量）：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> Employee <span class="title">getByName</span>(String name) {</div><div class="line">  <span class="keyword">int</span> id = database.find(name);</div><div class="line">  <span class="keyword">if</span> (id == <span class="number">0</span>) {</div><div class="line">    <span class="keyword">return</span> Employee.NOBODY;</div><div class="line">  }</div><div class="line">  <span class="keyword">return</span> Employee(id);</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>第二种方法是当你无法返回一个对象时，直接抛出一个异常：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> Employee <span class="title">getByName</span>(String name) {</div><div class="line">  <span class="keyword">int</span> id = database.find(name);</div><div class="line">  <span class="keyword">if</span> (id == <span class="number">0</span>) {</div><div class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> EmployeeNotFoundException(name);</div><div class="line">  }</div><div class="line">  <span class="keyword">return</span> Employee(id);</div><div class="line">}</div></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2014/09/26/1/" data-id="gh2ui2dr9a894y2h" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/翻译/">翻译</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-hello-world-1" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2014/09/05/hello-world-1/" class="article-date">
@@ -161,14 +213,28 @@
     
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/翻译/">翻译</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/java/" style="font-size: NaNpx;">java</a><a href="/tags/翻译/" style="font-size: NaNpx;">翻译</a>
+    </div>
+  </div>
+
   
     
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09">September 2014</a><span class="archive-list-count">2</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09">September 2014</a><span class="archive-list-count">3</span></li></ul>
     </div>
   </div>
 
@@ -178,6 +244,10 @@
     <h3 class="widget-title">Recents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2014/09/26/1/">为什么null很糟糕？</a>
+          </li>
         
           <li>
             <a href="/2014/09/05/hello-world-1/">hello world</a>
