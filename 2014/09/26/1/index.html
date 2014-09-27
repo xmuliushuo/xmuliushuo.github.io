@@ -7,25 +7,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="本文翻译自Why NULL is Bad?，转载请注明出处。
 下面是一个简单的例子，函数返回了null值：
-1234567public Employee getByName(String name) {	int id = database.find(name);	if (id == 0) {		return null;	}	return new Employee(id);}
+1234567public Employee getByName(String name) {  int id = database.find(name);  if (id == 0) {    return null;  }  return new Employee(id);}
 
-这个方法有什么问题呢">
+这个方法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="为什么null很糟糕？">
 <meta property="og:url" content="http://yoursite.com/2014/09/26/1/">
 <meta property="og:site_name" content="Liu Shuo's blog">
 <meta property="og:description" content="本文翻译自Why NULL is Bad?，转载请注明出处。
 下面是一个简单的例子，函数返回了null值：
-1234567public Employee getByName(String name) {	int id = database.find(name);	if (id == 0) {		return null;	}	return new Employee(id);}
+1234567public Employee getByName(String name) {  int id = database.find(name);  if (id == 0) {    return null;  }  return new Employee(id);}
 
-这个方法有什么问题呢">
+这个方法">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="为什么null很糟糕？">
 <meta name="twitter:description" content="本文翻译自Why NULL is Bad?，转载请注明出处。
 下面是一个简单的例子，函数返回了null值：
-1234567public Employee getByName(String name) {	int id = database.find(name);	if (id == 0) {		return null;	}	return new Employee(id);}
+1234567public Employee getByName(String name) {  int id = database.find(name);  if (id == 0) {    return null;  }  return new Employee(id);}
 
-这个方法有什么问题呢">
+这个方法">
 
   
     <link rel="alternative" href="/atom.xml" title="Liu Shuo&#39;s blog" type="application/atom+xml">
@@ -96,11 +96,11 @@
       
         <p>本文翻译自<a href="http://www.javacodegeeks.com/2014/09/why-null-is-bad.html" target="_blank" rel="external">Why NULL is Bad?</a>，转载请注明出处。</p>
 <p>下面是一个简单的例子，函数返回了null值：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> Employee <span class="title">getByName</span>(String name) {</div><div class="line">	<span class="keyword">int</span> id = database.find(name);</div><div class="line">	<span class="keyword">if</span> (id == <span class="number">0</span>) {</div><div class="line">		<span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">	}</div><div class="line">	<span class="keyword">return</span> <span class="keyword">new</span> Employee(id);</div><div class="line">}</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> Employee <span class="title">getByName</span>(String name) {</div><div class="line">  <span class="keyword">int</span> id = database.find(name);</div><div class="line">  <span class="keyword">if</span> (id == <span class="number">0</span>) {</div><div class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">  }</div><div class="line">  <span class="keyword">return</span> <span class="keyword">new</span> Employee(id);</div><div class="line">}</div></pre></td></tr></table></figure>
 
 <p>这个方法有什么问题呢？</p>
-<p>问题出在有时候它返回了一个null而不是一个对象。返回null是面向对象编程中的一种非常糟糕的行为，应该尽全力去避免。关于这一点，已经有很多观点，包括Tony Hoare的演讲 <a href="http://www.infoq.com/presentations/Null-References-The-Billion-Dollar-Mistake-Tony-Hoare" target="_blank" rel="external">Null References: The Billion Dollar Mistake</a> 以及David West的书 <a href="http://www.amazon.com/gp/product/0735619654/" target="_blank" rel="external">Obejct Thinking</a></p>
-<p>这里，我会总结所有的关于null的争论和以及如何避免null的例子。</p>
+<p>问题出在有时候它返回了一个null而不是一个对象。返回null是面向对象编程中的一种非常糟糕的行为，应该尽力去避免。关于这一点，已经有很多观点，包括Tony Hoare的演讲 <a href="http://www.infoq.com/presentations/Null-References-The-Billion-Dollar-Mistake-Tony-Hoare" target="_blank" rel="external">Null References: The Billion Dollar Mistake</a> 以及David West的书 <a href="http://www.amazon.com/gp/product/0735619654/" target="_blank" rel="external">Obejct Thinking</a></p>
+<p>这这篇文章中，我会总结所有的关于null的讨论以及如何用面向对象的思维去避免null。</p>
 <p>有两种基本的方法可以避免null.</p>
 <p>第一种方法是使用 <a href="http://en.wikipedia.org/wiki/Null_Object_pattern" target="_blank" rel="external">Null Object</a> 设计模式（最好将其设为常量）：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> Employee <span class="title">getByName</span>(String name) {</div><div class="line">  <span class="keyword">int</span> id = database.find(name);</div><div class="line">  <span class="keyword">if</span> (id == <span class="number">0</span>) {</div><div class="line">    <span class="keyword">return</span> Employee.NOBODY;</div><div class="line">  }</div><div class="line">  <span class="keyword">return</span> Employee(id);</div><div class="line">}</div></pre></td></tr></table></figure>
@@ -108,43 +108,55 @@
 <p>第二种方法是当你无法返回一个对象时，直接抛出一个异常：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> Employee <span class="title">getByName</span>(String name) {</div><div class="line">  <span class="keyword">int</span> id = database.find(name);</div><div class="line">  <span class="keyword">if</span> (id == <span class="number">0</span>) {</div><div class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> EmployeeNotFoundException(name);</div><div class="line">  }</div><div class="line">  <span class="keyword">return</span> Employee(id);</div><div class="line">}</div></pre></td></tr></table></figure>
 
-<p>除了上面提到的Tony Hoare的演讲和David West的书，我还看了下面的资料：Robert Martin的<a href="http://www.amazon.com/dp/0132350882/" target="_blank" rel="external">Clean Code</a>，Steve McConnell的<a href="http://www.amazon.com/dp/0735619670/" target="_blank" rel="external">Code Complete</a>，John Sonmez的<a href="http://elegantcode.com/2010/05/01/say-no-to-null/" target="_blank" rel="external">Say “No” to “Null”</a>以及在StackOverFlow上的讨论<a href="http://stackoverflow.com/questions/1274792/is-returning-null-bad-design" target="_blank" rel="external">Is returning null bad design?</a></p>
-<h2 id="点对点的错误处理">点对点的错误处理</h2>
-<p>每次你得到一个对象作为输入，你必须检查其是否是null或者是无效的对象。如果你忘记了做此项检查，那么程序运行时就可能会抛出一个<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/NullPointerException.html" target="_blank" rel="external">NullPointerException</a>。所以，你的代码会被一大推的检查和if/then/else/污染：</p>
+<p>现在我们来看看关于null的争论。</p>
+<p>除了上面提到的Tony Hoare的演讲和David West的书，我还查阅了下面的资料：Robert Martin的<a href="http://www.amazon.com/dp/0132350882/" target="_blank" rel="external">Clean Code</a>，Steve McConnell的<a href="http://www.amazon.com/dp/0735619670/" target="_blank" rel="external">Code Complete</a>，John Sonmez的<a href="http://elegantcode.com/2010/05/01/say-no-to-null/" target="_blank" rel="external">Say “No” to “Null”</a>以及在StackOverFlow上的讨论<a href="http://stackoverflow.com/questions/1274792/is-returning-null-bad-design" target="_blank" rel="external">Is returning null bad design?</a></p>
+<h2 id="Ad-hoc错误处理">Ad-hoc错误处理</h2>
+<p>每次你得到一个对象作为输入，你必须检查其是否是null或者是个无效的对象。如果你忘记了做此项检查，那么程序运行时就可能会抛出一个<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/NullPointerException.html" target="_blank" rel="external">NullPointerException</a>。所以，你的代码会被一大推的检查和if/then/else/污染：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// this is a terrible design, don't reuse</span></div><div class="line">Employee employee = dept.getByName(<span class="string">"Jeffrey"</span>);</div><div class="line"><span class="keyword">if</span> (employee == <span class="keyword">null</span>) {</div><div class="line">  System.out.println(<span class="string">"can't find an employee"</span>);</div><div class="line">  System.exit(-<span class="number">1</span>);</div><div class="line">} <span class="keyword">else</span> {</div><div class="line">  employee.transferTo(dept2);</div><div class="line">}</div></pre></td></tr></table></figure>
 
 <p>这是一种典型的C和其他面向过程的编程语言处理异常的方法，面向对象的语言引入异常就是为了减少这种情况的发生。在面向对象的编程语言中，我们直接抛出一个异常，这样可以使代码更加简洁。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dept.getByName(<span class="string">"Jeffrey"</span>).transferTo(dept2);</div></pre></td></tr></table></figure>
 
 <h2 id="模糊语义">模糊语义</h2>
-<p>为了准确的传达方法的意义，getByName()应该被命名为getByNameOrNullIfNotFound()。所有的返回一个对象或者null的方法都应该如此命名。否则，阅读源码时会不可避免地产生歧义。因此，为了使方法名不产生歧义，你需要给这些方法一个很长的命名。</p>
-<p>为了避免歧义，方法应该总是返回一个对象、null对象或者抛出异常。</p>
-<p>有些人可能会争论说为了性能，有的时候我不得不返回一个null。当对应的值为空时，Map的get()方法总是返回一个null:</p>
+<p>为了准确的传达方法的意义，getByName()应该被命名为getByNameOrNullIfNotFound()。所有会返回null的方法都应该如此命名。否则，阅读源码时会不可避免地产生歧义。因此，为了使方法名不产生歧义，你需要给这些方法一个很长的命名。</p>
+<p>为了避免歧义，方法应该总是返回一个对象、null Object或者抛出异常。</p>
+<p>有些人可能会争论说为了提高性能，有时候我不得不返回一个null。比如当请求的值为空时，Map的get()方法总是返回一个null:</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Employee employee = employees.get(<span class="string">"Jeffrey"</span>);</div><div class="line"><span class="keyword">if</span> (employee == <span class="keyword">null</span>) {</div><div class="line">  <span class="keyword">throw</span> <span class="keyword">new</span> EmployeeNotFoundException();</div><div class="line">}</div><div class="line"><span class="keyword">return</span> employee;</div></pre></td></tr></table></figure>
 
-<p>因为null我们只需要搜索一次，如果我们重构Map，那么当没有对应的值时，它的get()方法会抛出一个异常，那么代码类似于下面：</p>
+<p>因为返回了null，所以我们只需要在Map中搜索一次，如果我们重构Map，当没有对应的值时，它的get()方法会抛出一个异常，那么代码类似于下面：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (!employees.containsKey(<span class="string">"Jeffrey"</span>)) { <span class="comment">// first search</span></div><div class="line">  <span class="keyword">throw</span> <span class="keyword">new</span> EmployeeNotFoundException();</div><div class="line">}</div><div class="line"><span class="keyword">return</span> employees.get(<span class="string">"Jeffrey"</span>); <span class="comment">// second search</span></div></pre></td></tr></table></figure>
 
-<p>很明显，这个方法会比上面的方法慢两倍。怎么办？</p>
-<p>Map接口有一个设计缺陷（无意冒犯其作者），它的get()方法应该返回一个iterator，所以我们的代码长这个样子：</p>
+<p>很明显，因为在Map中多搜索了一次，所以这个方法会比上面的方法慢两倍。那么怎么办呢？</p>
+<p>其实Map接口有一个设计缺陷（无意冒犯其作者），它的get()方法应该返回一个iterator，所以我们的代码其实应该长这个样子：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Iterator found = Map.search(<span class="string">"Jeffrey"</span>);</div><div class="line"><span class="keyword">if</span> (!found.hasNext()) {</div><div class="line">  <span class="keyword">throw</span> <span class="keyword">new</span> EmployeeNotFoundException();</div><div class="line">}</div><div class="line"><span class="keyword">return</span> found.next();</div></pre></td></tr></table></figure>
 
 <p>顺便说一句，C++ STL map::find()正是如此设计的。</p>
 <h2 id="计算机思维vs对象思维">计算机思维vs对象思维</h2>
-<p>一个懂得java语言中对象是一个指向某个数据结构的指针并且null指向空（在intel x86处理器中是0x00000000）的人自然会明白if (employee == null)的含义。</p>
-<p>然而，如果你站在一个对象的立场上去看，这条语句毫无意义。这是站在一个对象的立场上看到的内容：</p>
+<p>在java语言中对象其实是一个指向某个数据结构的指针，而null则指向空（在intel x86处理器中是0x00000000），懂得这些的人自然会明白if (employee == null)的含义。</p>
+<p>然而，如果你站在一个对象的立场上去看，这条语句变得毫无意义。这是站在一个对象的立场上看到的内容：</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">-<span class="ruby"> <span class="constant">Hello</span>, is it a software department?</span></div><div class="line">-<span class="ruby"> <span class="constant">Yes</span>.</span></div><div class="line">-<span class="ruby"> <span class="constant">Let</span> me talk to your employee <span class="string">"Jeffrey"</span> please.</span></div><div class="line">-<span class="ruby"> <span class="constant">Hold</span> the line please...</span></div><div class="line">-<span class="ruby"> <span class="constant">Hello</span>.</span></div><div class="line">-<span class="ruby"> <span class="constant">Are</span> you <span class="constant">NULL</span>?</span></div></pre></td></tr></table></figure>
 
 <p>这段对话的最后一个问题看起来很奇怪，不是么？</p>
-<p>相反，如果他们那些电话尝试给Jeffrey打电话，这没有打通（Exception），我们会尝试再次拨打电话或者通知管理员电话线路出了问题。</p>
+<p>相反，如果我们尝试给Jeffrey打电话，但是没有打通（Exception），那么我们会尝试再次拨打电话或者通知管理员电话线路出了问题。</p>
 <p>作为一种选择，他们可能让我们与另外一个不是Jeffrey但是可以解决我们问题的人通话，如果我们必须跟Jeffrey通话，那么他们会明确拒绝（Null Object）。</p>
 <h2 id="Slow_Failing">Slow Failing</h2>
 <p>不同于<a href="http://martinfowler.com/ieeeSoftware/failFast.pdf" target="_blank" rel="external">failing fast</a>，上面的这段代码尝试慢慢死去，而不是当异常发生时立刻让其他人知道。</p>
-<p>这个议题和上面的”点对点错误处理”相似。</p>
+<p>这个议题和上面的”Ad-hoc错误处理”相似。</p>
 <p>让你的代码变得易碎是一个好的实践，在需要的时候直接把它打碎。</p>
+<p>当数据不符合要求时，直接抛出一个异常；否则返回一个null Object，当然这会引起其他方法类似的行为。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> Employee <span class="title">getByName</span>(String name) {</div><div class="line">  <span class="keyword">int</span> id = database.find(name);</div><div class="line">  Employee employee;</div><div class="line">  <span class="keyword">if</span> (id == <span class="number">0</span>) {</div><div class="line">    employee = <span class="keyword">new</span> Employee() {</div><div class="line">      <span class="annotation">@Override</span></div><div class="line">      <span class="keyword">public</span> String <span class="title">name</span>() {</div><div class="line">        <span class="keyword">return</span> <span class="string">"anonymous"</span>;</div><div class="line">      }</div><div class="line">      <span class="annotation">@Override</span></div><div class="line">      <span class="keyword">public</span> <span class="keyword">void</span> <span class="title">transferTo</span>(Department dept) {</div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> AnonymousEmployeeException(</div><div class="line">          <span class="string">"I can't be transferred, I'm anonymous"</span></div><div class="line">        );</div><div class="line">      }</div><div class="line">    };</div><div class="line">  } <span class="keyword">else</span> {</div><div class="line">    employee = Employee(id);</div><div class="line">  }</div><div class="line">  <span class="keyword">return</span> employee;</div><div class="line">}</div></pre></td></tr></table></figure>
 
-<p>未完成…</p>
+<h2 id="可变和不完全的对象">可变和不完全的对象</h2>
+<p>总体上来讲，强烈推荐尽量让对象不可变。这就意味着一个对象在实例化时就知道了所有信息，并且在它的生命周期内不会发生改变。</p>
+<p>lazy loading经常用到null，这使得一个对象不完全和可变。比如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Department</span> </span>{</div><div class="line">  <span class="keyword">private</span> Employee found = <span class="keyword">null</span>;</div><div class="line">  <span class="keyword">public</span> <span class="keyword">synchronized</span> Employee <span class="title">manager</span>() {</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.found == <span class="keyword">null</span>) {</div><div class="line">      <span class="keyword">this</span>.found = <span class="keyword">new</span> Employee(<span class="string">"Jeffrey"</span>);</div><div class="line">    }</div><div class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.found;</div><div class="line">  }</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>这种广泛使用的技术是一种反OOP的模式。主要是因为它使一个对象负责了计算平台的性能问题，而这本是一个Employee对象不应该关心的。lazy loading使一个对象必须管理自己的缓存接口，而不是管理它本身的状态和业务逻辑。</p>
+<p>解决方案吗?不要用上述这种原始的方法来实现lazy loading。而是把缓存问题交给另外一个应用程序层。</p>
+<p>例如，在Java中,您可以使用面向切面的编程方法。例如，jcabi-aspects @Cacheable注释缓存方法返回的值:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> com.jcabi.aspects.Cacheable;</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Department</span> </span>{</div><div class="line">  <span class="annotation">@Cacheable</span>(forever = <span class="keyword">true</span>)</div><div class="line">  <span class="keyword">public</span> Employee <span class="title">manager</span>() {</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Employee(<span class="string">"Jacky Brown"</span>);</div><div class="line">  }</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>我希望这篇文章令人信服，以至于你会停止NULL代码!</p>
 
       
     </div>
@@ -158,16 +170,6 @@
   </div>
   
     
-<nav id="article-nav">
-  
-  
-    <a href="/2014/09/05/hello-world-1/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">hello world</div>
-    </a>
-  
-</nav>
-
   
 </article>
 
@@ -199,7 +201,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09">September 2014</a><span class="archive-list-count">3</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09">September 2014</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -212,14 +214,6 @@
         
           <li>
             <a href="/2014/09/26/1/">为什么null很糟糕？</a>
-          </li>
-        
-          <li>
-            <a href="/2014/09/05/hello-world-1/">hello world</a>
-          </li>
-        
-          <li>
-            <a href="/2014/09/05/hello-world/">Hello World</a>
           </li>
         
       </ul>
